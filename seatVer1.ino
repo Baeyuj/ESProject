@@ -47,6 +47,9 @@ void loop() {
   }
   if (state == 4) { //대전역 도착하기 전에 자리에서 비켜야함을 알려줌
     seatOut();
+  } else if (state == 5) {
+    digitalWrite(pinLED, LOW);
+    analogWrite(pinVibM, 0);
   }
 }
 
