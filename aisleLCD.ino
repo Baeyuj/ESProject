@@ -50,12 +50,10 @@ void LCD(byte seatStatus, byte currentStation){ //LCD 출력 함수
 }
 
 void loop() {
-  Wire.requestFrom(aisle, 1); //데이터 전송 받기 위함
   if (mySerial.available()) {
     c = mySerial.read(); //시리얼통신으로 송신받음
    }
-  if (done) {
-
+  if (done) { //데이터 수신 확인
     LCD(c,n); //LCD 출력
   }
    delay(1000);
