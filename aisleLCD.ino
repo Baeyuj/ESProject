@@ -34,7 +34,6 @@ void LCD(byte seatStatus, byte currentStation){ //LCD 출력 함수
   lcd.print("Empty seat");
    
   if(currentStation == ULSAN || currentStation == BEFORE_DAEJEON){
-    Serial.write("통신");
     if(seatStatus==1){
       lcd.setCursor(16,1);
       lcd.print(" ");
