@@ -30,7 +30,7 @@ void loop()
     data = 0;
   }
   
-if(digitalWrite(S[0], HIGH)//마스터로부터 명령해제상태 받음
+if(digitalRead(S[0]) == HIGH)//마스터로부터 명령해제상태 받음
      command = 0;    
 }//loop 끝
 
