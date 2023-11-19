@@ -45,8 +45,8 @@ void readSensor() { // 아두이노 4에게 압력값 받기
   digitalWrite(S[0], LOW);// S[0]-> 아두이노 4
   Serial.println("Sensor OK");
   transferAndWait('s'); // 센서에 사람이 있는지 데이터 전송 요청
-  transferAndWait(99);
-  seatOccupied = transferAndWait(99);
+  transferAndWait(255);
+  seatOccupied = transferAndWait(255);
   
   digitalWrite(S[0], HIGH);
 }
