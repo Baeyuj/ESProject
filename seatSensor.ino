@@ -5,7 +5,7 @@ SoftwareSerial mySerial(4, 5); //UART 통신 핀 선언
 int pinFsr = A0;//압력센서
 int fsrValue;//압력입력값
 
-volatile boolean data = 0;
+volatile byte data = 0;
 volatile byte command = 0;
 
 void setup()
