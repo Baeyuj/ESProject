@@ -2,7 +2,7 @@
 #include <SoftwareSerial.h>
 #include <Wire.h>
 #include <state.h>
-#define sv1 8
+#define aisle 8
 
 SoftwareSerial mySerial(4,5);
 
@@ -13,25 +13,35 @@ LiquidCrystal lcd(RS,EN,D4,D5,D6,D7);
  
 byte c; //시리얼통신으로 상태 송신 받는 변수
 byte n; //I2C로 현재역 송신 받는 변수
-
+volatile boolean done = false;
 
 void setup() {
   lcd.begin(16, 2);
   mySerial.begin(9600); //시리얼 통신
-  Wire.begin();
+  Serial.begin(9600);
+  Wire.begin(aisle);
+  Wire.onReceive(receiveEvent);
 }
 
+void receiveEvent(int howMany){
+  while(Wire.available()){
+    n=Wire.read(); //I2C로 현재역 송신받음
+    done=true;
+  }
+}
 
-void LCD(byte seatStatus, byte currentStation){
+void LCD(byte seatStatus, byte currentStation){ //LCD 출력 함수
   lcd.print("Empty seat");
    
-  if(currentStation== ULSAN || currentStation == BEFORE_DAEJEON){
+  if(currentStation == ULSAN || currentStation == BEFORE_DAEJEON){
+    Serial.write("통신");
     if(seatStatus==1){
       lcd.setCursor(16,1);
       lcd.print(" ");
+     
     }else{
       lcd.setCursor(16,1);
-      lcd.print(" ");
+      lcd.print("1A");
     }
   }
   else{
@@ -41,14 +51,14 @@ void LCD(byte seatStatus, byte currentStation){
 }
 
 void loop() {
-  Wire.requestFrom(sv1, 1); //데이터 전송 받기 위함
+  Wire.requestFrom(aisle, 1); //데이터 전송 받기 위함
   if (mySerial.available()) {
     c = mySerial.read(); //시리얼통신으로 송신받음
    }
-  while (Wire.available()) {
-    n = Wire.read(); //I2C로 현재역 송신받음
+  if (done) {
+
     LCD(c,n); //LCD 출력
   }
-   delay(100);
+   delay(1000);
 }
     
