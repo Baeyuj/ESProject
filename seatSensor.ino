@@ -23,14 +23,14 @@ void loop()
 {
   fsrValue = analogRead(pinFsr);
   if (fsrValue > 500){
-     mySerial.write('1'); //시리얼 통신으로 송신 보냄
+     mySerial.write('Y'); //시리얼 통신으로 송신 보냄
      data = 1;
   }else{
-    mySerial.write('0'); //시리얼 통신으로 송신 보냄
+    mySerial.write('N'); //시리얼 통신으로 송신 보냄
     data = 0;
   }
   
-if(digitalWrite(S[0], HIGH);//마스터로부터 명령해제상태 받음
+if(digitalWrite(S[0], HIGH)//마스터로부터 명령해제상태 받음
      command = 0;    
 }//loop 끝
 
@@ -38,7 +38,7 @@ ISR(SPI_STC_vect)//아두이노 1과 SPI 통신
 {
   byte c = SPDR;
   switch(command){
-  case 0:
+  case 99:
     command = c;
     SPDR = 0;
     break;
