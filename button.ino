@@ -59,20 +59,20 @@ void controlActuator() {        // seatActuator 컨트롤
 }
 
 void checkButton(){
-  if(digitalRead(button[0]) == HIGH)        // 0번 버튼일 때 SEOUL
+  if(digitalRead(button[0]) == HIGH)        // 1번 버튼일 때 SEOUL
     state = BUSAN;
-  else if(digitalRead(button[1]) == HIGH){  // 1번 버튼일 때 BEFORE_ULSAN
+  else if(digitalRead(button[1]) == HIGH){  // 2번 버튼일 때 BEFORE_ULSAN
     state = BEFORE_ULSAN;
     l1 = millis();
   }
-  else if(digitalRead(button[2]) == HIGH){  // 2번 버튼일 때 BEFORE_DAEJEON
+  else if(digitalRead(button[2]) == HIGH){  // 3번 버튼일 때 BEFORE_DAEJEON
     state = BEFORE_DAEJEON;
     l3 = millis();
     controlActuator();                      // 액추에이터 컨트롤
   }
-  else if(digitalRead(button[3]) == HIGH)   // 3번 버튼일 때 SEOUL
+  else if(digitalRead(button[3]) == HIGH)   // 4번 버튼일 때 SEOUL
     state = SEOUL; 
-  else if(digitalRead(button[4]) == HIGH)   // 4번 버튼일 때 초기화
+  else if(digitalRead(button[4]) == HIGH)   // 5번 버튼일 때 초기화
     state = DEFAULT_STATE;  
 }
 
