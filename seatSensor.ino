@@ -1,52 +1,46 @@
 #include <SoftwareSerial.h>
 
-SoftwareSerial mySerial(4, 5); //UART 통신 핀 선언
+SoftwareSerial mySerial(4, 5);       //UART
 
-int pinFsr = A0;//압력센서
-int fsrValue;//압력입력값
+int pinFSR402 = A0;                  // 압력센서 핀
+int FSRValue = 0;                    // 압력 값
 
-volatile byte data = 0;
-volatile byte command = 0;
+volatile byte seatOccupied = 0;      // 현재 자리에 사람이 있는지 여부
+volatile byte command = 0;           // 마스터로부터 받는 명령
 
-void setup()
-{
-  mySerial.begin(9600);//시리얼통신 보드레이트
+void setup(){
+  mySerial.begin(9600); 
+  
   pinMode(MISO, OUTPUT);
   SPCR |= _BV(SPE);
   SPCR &= ~_BV(MSTR);
   SPCR |= _BV(SPIE);
-  
-  pinMode(pinFsr, INPUT);
 }
 
-void loop()
-{
-  fsrValue = analogRead(pinFsr);
-  if (fsrValue > 500){
-     mySerial.write('Y'); //시리얼 통신으로 송신 보냄
-     data = 1;
-  }else{
-    mySerial.write('N'); //시리얼 통신으로 송신 보냄
-    data = 0;
+void loop(){
+  FSRValue = analogRead(pinFSR402); // 압력센서 읽음
+  if (FSRValue > 500){              // 압력이 500보다 클 때
+     mySerial.write('Y');           // aisleLCD에 송신
+     seatOccupied = 1;              // 자리에 앉아있다고 판단
+  } else {                          // 압력이 500보다 작을 때
+    mySerial.write('N');            // aisleLCD에 송신
+    seatOccupied = 0;               // 자리에 앉아있지 않다고 판단
   }
   
-if(digitalRead(S[0]) == HIGH)//마스터로부터 명령해제상태 받음
-{
-  command = 0; 
+  if(digitalRead(SS) == HIGH)       // 명령 상태 해제
+     command = 255;    
 }
-        
-}//loop 끝
 
-ISR(SPI_STC_vect)//아두이노 1과 SPI 통신
-{
+ISR(SPI_STC_vect){
   byte c = SPDR;
+  
   switch(command){
-  case 99:
+  case 255:                         // 쓰레기 값을 받았을 때
     command = c;
-    SPDR = 0;
+    SPDR = 255;
     break;
-  case 's':
-    SPDR = data;
+  case 's':                         // 센서값을 요청받았을 때
+    SPDR = seatOccupied;
     break;
   }
 }
