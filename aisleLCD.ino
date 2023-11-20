@@ -11,7 +11,7 @@ const int D4 = 6; const int D5 = 7;
 const int D6 = 8; const int D7 = 9;
 LiquidCrystal lcd(RS,EN,D4,D5,D6,D7);
  
-char c; //시리얼통신으로 상태 송신 받는 변수
+byte c; //시리얼통신으로 상태 송신 받는 변수
 byte n; //I2C로 현재역 송신 받는 변수
 volatile boolean done = false;
 
