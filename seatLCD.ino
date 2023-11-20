@@ -9,7 +9,7 @@ LiquidCrystal lcd(2, 3, 4, 5, 6, 7);
 volatile boolean done = false; //데이터 수신 상태 확인 변수
 byte inputData; //통신으로 받을 데이터 변수 선언
 
-unsigned long l1 = 0 //millis() 시간 기준 변수
+unsigned long l1 = 0; //millis() 시간 기준 변수
 unsigned long l2 = 0; //millis() 시간 체크 변수
 unsigned long interval = 60000; //역 도착 출력 후 lcd 꺼지는 시간 == 1분
 
