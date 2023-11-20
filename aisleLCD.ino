@@ -21,6 +21,7 @@ void setup() {
   Serial.begin(9600);
   Wire.begin(aisle);
   Wire.onReceive(receiveEvent);
+ lcd.print("Empty seat");
 }
 
 void receiveEvent(int howMany){
@@ -31,16 +32,16 @@ void receiveEvent(int howMany){
 }
 
 void LCD(byte seatStatus, byte currentStation){ //LCD 출력 함수
-  lcd.print("Empty seat");
+  
    
   if(currentStation == ULSAN || currentStation == BEFORE_DAEJEON){
     Serial.write("통신");
     if(seatStatus=='Y'){
-      lcd.setCursor(16,1);
+      lcd.setCursor(0,1);
       lcd.print(" ");
      
     }else{
-      lcd.setCursor(16,1);
+      lcd.setCursor(0,1);
       lcd.print("1A");
     }
   }
