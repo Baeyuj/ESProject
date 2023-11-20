@@ -6,7 +6,7 @@ int pinFSR402 = A0;                  // 압력센서 핀
 int FSRValue = 0;                    // 압력 값
 
 volatile byte seatOccupied = 0;      // 현재 자리에 사람이 있는지 여부
-volatile byte command = 0;           // 마스터로부터 받는 명령
+volatile byte command = 255;           // 마스터로부터 받는 명령
 
 void setup(){
   mySerial.begin(9600); 
