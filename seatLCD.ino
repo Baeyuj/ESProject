@@ -10,7 +10,7 @@ byte inputData; //통신으로 받을 데이터 변수 선언
 
 unsigned long l1 = 0; //millis() 시간 기준 변수
 unsigned long l2 = 0; //millis() 시간 체크 변수
-unsigned long interval = 10000; //역 도착 출력 후 lcd 꺼지는 시간 == 1분
+unsigned long interval = 5000; //역 도착 출력 후 lcd 꺼지는 시간 == 1분
 
 void setup() {
   // put your setup code here, to run once:
@@ -34,6 +34,8 @@ void printLCD(byte c) { //lcd 문장 출력 함수
           lcd.setCursor(0, 1);
           lcd.print("Busan station");
           Serial.println("Busan");
+          Serial.println(l1);
+          Serial.println(l2);
         }
         break;
       case BEFORE_ULSAN: //울산역 도착 3분 전
@@ -87,7 +89,9 @@ void printLCD(byte c) { //lcd 문장 출력 함수
         Serial.println("Seoul");
         break;
       case DEFAULT_STATE: //초기화
-        l1 = 0; l2 = 0;
+        l1 = millis(); 
+        l2 = millis();
+        lcd.clear();
         Serial.println("reset");
         break;
     }
