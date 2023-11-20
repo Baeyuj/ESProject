@@ -6,4 +6,4 @@
 #define BEFORE_DAEJEON 4
 #define DAEJEON 5
 #define SEOUL 6
-#define default 7
+#define DEFAULT_STATE 7
