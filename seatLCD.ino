@@ -10,7 +10,7 @@ byte inputData; //통신으로 받을 데이터 변수 선언
 
 unsigned long l1 = 0; //millis() 시간 기준 변수
 unsigned long l2 = 0; //millis() 시간 체크 변수
-unsigned long interval = 60000; //역 도착 출력 후 lcd 꺼지는 시간 == 1분
+unsigned long interval = 10000; //역 도착 출력 후 lcd 꺼지는 시간 == 1분
 
 void setup() {
   // put your setup code here, to run once:
@@ -32,12 +32,13 @@ void printLCD(byte c) { //lcd 문장 출력 함수
           lcd.setCursor(0, 0);
           lcd.print("This station is");
           lcd.setCursor(0, 1);
-          lcd.print("Busan");
+          lcd.print("Busan station");
           Serial.println("Busan");
         }
         break;
       case BEFORE_ULSAN: //울산역 도착 3분 전
         l1 = l2; //기준 시간 변수 값 재할당 (3분 전->도착역으로 바뀌는 시점)
+        lcd.clear(); //LCD 지우기
         lcd.setCursor(0, 0);
         lcd.print("We'll arrive at");
         lcd.setCursor(0, 1);
@@ -53,7 +54,7 @@ void printLCD(byte c) { //lcd 문장 출력 함수
           lcd.setCursor(0, 0);
           lcd.print("This station is");
           lcd.setCursor(0, 1);
-          lcd.print("Ulsan");
+          lcd.print("Ulsan station");
           Serial.println("Ulsan");
         }
         break;
@@ -74,7 +75,7 @@ void printLCD(byte c) { //lcd 문장 출력 함수
           lcd.setCursor(0, 0);
           lcd.print("This station is");
           lcd.setCursor(0, 1);
-          lcd.print("Daejeon");
+          lcd.print("Daejeon station");
           Serial.println("Daejeon");
         }
         break;
@@ -82,7 +83,7 @@ void printLCD(byte c) { //lcd 문장 출력 함수
         lcd.setCursor(0, 0);
         lcd.print("This station is");
         lcd.setCursor(0, 1);
-        lcd.print("Seoul, last stop");
+        lcd.print("Seoul station");
         Serial.println("Seoul");
         break;
     }
