@@ -92,7 +92,6 @@ void setMode() {                                // 상태를 설정해 I2C 통�
       writeI2C(BUSAN);
       break;
     case BEFORE_ULSAN:
-      
       Serial.println("BEFORE_ULSAN");
       writeI2C(BEFORE_ULSAN);
       if(l2 - l1 >= interval) state = ULSAN;    // 일정 시간이 지나면 state를 ULSAN으로 변경
@@ -103,7 +102,6 @@ void setMode() {                                // 상태를 설정해 I2C 통�
       readSensor();                             // 센서 읽어옴
       break;
     case BEFORE_DAEJEON:
-      
       Serial.println("BEFORE_DAEJEON");
       writeI2C(BEFORE_DAEJEON);
       readSensor();
@@ -123,7 +121,6 @@ void setMode() {                                // 상태를 설정해 I2C 통�
     case DEFAULT_STATE:
       Serial.println("DEFAULT_STATE");
       writeI2C(DEFAULT_STATE);
-    
   }
 }
 void loop() {
