@@ -38,6 +38,7 @@ void printLCD(byte c) { //lcd 문장 출력 함수
         break;
       case BEFORE_ULSAN: //울산역 도착 3분 전
         l1 = l2; //기준 시간 변수 값 재할당 (3분 전->도착역으로 바뀌는 시점)
+        lcd.clear(); //LCD 지우기
         lcd.setCursor(0, 0);
         lcd.print("We'll arrive at");
         lcd.setCursor(0, 1);
@@ -84,6 +85,10 @@ void printLCD(byte c) { //lcd 문장 출력 함수
         lcd.setCursor(0, 1);
         lcd.print("Seoul station");
         Serial.println("Seoul");
+        break;
+      case DEFAULT_STATE: //초기화
+        l1 = 0; l2 = 0;
+        Serial.println("reset");
         break;
     }
 }
