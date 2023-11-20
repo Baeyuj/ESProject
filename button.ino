@@ -68,6 +68,7 @@ void checkButton(){
   else if(digitalRead(button[2]) == HIGH){  // 2번 버튼일 때 BEFORE_DAEJEON
     state = BEFORE_DAEJEON;
     l3 = millis();
+    controlActuator();                      // 액추에이터 컨트롤
   }
   else if(digitalRead(button[3]) == HIGH)   // 3번 버튼일 때 SEOUL
     state = SEOUL; 
@@ -103,7 +104,6 @@ void setMode() {                                // 상태를 설정해 I2C 통�
       Serial.println("BEFORE_DAEJEON");
       writeI2C(BEFORE_DAEJEON);
       readSensor();                             // 센서 읽어옴
-      controlActuator();                        // 액추에이터 컨트롤
       if(l4 - l3 >= interval) state = DAEJEON;  // 일정 시간이 지나면 state를 DAEJEON으로 변경
       break;
     case DAEJEON:
