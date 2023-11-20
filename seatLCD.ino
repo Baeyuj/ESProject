@@ -6,7 +6,6 @@
 
 LiquidCrystal lcd(2, 3, 4, 5, 6, 7);
 
-volatile boolean done = false; //데이터 수신 상태 확인 변수
 byte inputData; //통신으로 받을 데이터 변수 선언
 
 unsigned long l1 = 0; //millis() 시간 기준 변수
@@ -31,16 +30,14 @@ void printLCD(byte c) { //lcd 문장 출력 함수
         }
         else {
           lcd.setCursor(0, 0);
-          lcd.print("This's 1st stop");
+          lcd.print("This station is");
           lcd.setCursor(0, 1);
-          lcd.print("Busan station");
+          lcd.print("Busan");
           Serial.println("Busan");
-          l2 = millis(); //l2에 현재 시간 저장
         }
         break;
       case BEFORE_ULSAN: //울산역 도착 3분 전
-        l1 = l2; //기준 시간 변수 값 재할당
-        l2 = millis(); //l2에 현재 시간 할당
+        l1 = l2; //기준 시간 변수 값 재할당 (3분 전->도착역으로 바뀌는 시점)
         lcd.setCursor(0, 0);
         lcd.print("We'll arrive at");
         lcd.setCursor(0, 1);
@@ -54,16 +51,14 @@ void printLCD(byte c) { //lcd 문장 출력 함수
         }
         else {
           lcd.setCursor(0, 0);
-          lcd.print("This stop is");
+          lcd.print("This station is");
           lcd.setCursor(0, 1);
-          lcd.print("Ulsan station");
+          lcd.print("Ulsan");
           Serial.println("Ulsan");
-          l2 = millis(); //l2에 현재 시간 할당
         }
         break;
       case BEFORE_DAEJEON: //대전역 도착 3분 전
-        l1 = l2; //기준 시간 변수 값 재할당
-        l2 = millis(); //l2에 현재 시간 할당
+        l1 = l2; //기준 시간 변수 값 재할당 (3분 전->도착역으로 바뀌는 시점)
         lcd.setCursor(0, 0);
         lcd.print("We'll arrive at");
         lcd.setCursor(0, 1);
@@ -77,18 +72,17 @@ void printLCD(byte c) { //lcd 문장 출력 함수
         }
         else {
           lcd.setCursor(0, 0);
-          lcd.print("This stop is");
+          lcd.print("This station is");
           lcd.setCursor(0, 1);
-          lcd.print("Daejeon station");
+          lcd.print("Daejeon");
           Serial.println("Daejeon");
-          l2 = millis(); //l2에 현재 시간 할당
         }
         break;
       case SEOUL: //종착역-서울 도착
         lcd.setCursor(0, 0);
-        lcd.print("This's last stop");
+        lcd.print("This station is");
         lcd.setCursor(0, 1);
-        lcd.print("Seoul station");
+        lcd.print("Seoul, last stop");
         Serial.println("Seoul");
         break;
     }
@@ -96,16 +90,11 @@ void printLCD(byte c) { //lcd 문장 출력 함수
 
 void loop() {
   // put your main code here, to run repeatedly:
-  if(Wire.available()) { //읽어들일 데이터가 있으면
-    receiveEvent(1); //receiveEvent 함수 호출
-  }
-  if(done) { //데이터가 수신되었을 때만 실행
-    printLCD(inputData); //LCD 출력 함수 호출
-    done = false; //데이터 수신 상태 변경
-  }
+
 }
 
 void receiveEvent(int howMany) {
   inputData = Wire.read(); //inputData에 읽어들인 값 할당
-  done = true; //데이터 수신 상태 변경
+  printLCD(inputData);
+  l2 = millis(); //l2에 현재 시간 할당
 }
