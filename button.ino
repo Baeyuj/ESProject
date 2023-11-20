@@ -6,13 +6,13 @@
 #define aisle 8 // I2C 복도 LCD 주소
 
 byte seatOccupied;              // 좌석 착석 여부 
-int button[4] = {2, 3, 4, 5};   // 버튼 핀
+int button[5] = {2, 3, 4, 5 ,6};   // 버튼 핀
 byte state = 0;                 // 현재 상태
 
 int S[2] = { 9, 10 }; // SPI 통신: seatSensor, seatActuator
 
 unsigned long l1 = 0, l2 = 0, l3 = 0, l4 = 0; // 시간 체크
-unsigned long interval = 60000;                // state 변경을 위한 시간 = 1분
+unsigned long interval = 10000;                // state 변경을 위한 시간
 
 void setup() {
   // put your setup code here, to run once:
@@ -24,7 +24,7 @@ void setup() {
     digitalWrite(S[i], HIGH);
   }
   
-  for (int i = 0; i < 4; i++) { // 버튼 설정
+  for (int i = 0; i < 5; i++) { // 버튼 설정
     pinMode(button[i], INPUT);
   }
   
@@ -72,6 +72,8 @@ void checkButton(){
   }
   else if(digitalRead(button[3]) == HIGH)   // 3번 버튼일 때 SEOUL
     state = SEOUL; 
+  else if(digitalRead(button[4]) == HIGH)   // 4번 버튼일 때 초기화
+    state = DEFAULT_STATE;  
 }
 
 void writeI2C(byte data){         // I2C 통신하는 함수
@@ -109,11 +111,17 @@ void setMode() {                                // 상태를 설정해 I2C 통�
     case DAEJEON:
       Serial.println("DAEJEON");
       writeI2C(DAEJEON);
+      seatOccupied=0;
+      controlActuator();
       break;
     case SEOUL:
       Serial.println("SEOUL");
       writeI2C(SEOUL);
       break;
+    case DEFAULT_STATE:
+      Serial.println("DEFAULT_STATE");
+      writeI2C(DEFAULT_STATE);
+    
   }
 }
 void loop() {
