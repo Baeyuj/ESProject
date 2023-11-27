@@ -24,76 +24,78 @@ void setup() {
 void printLCD(byte c) { //lcd 문장 출력 함수
   if(c == BUSAN) {
     if(l2 - l1 >= interval) { //LCD 출력 후 1분이 지났을 때 실행
-          lcd.clear(); //LCD 지우기
-          Serial.println("clear");
-        }
-        else {
-          lcd.setCursor(0, 0);
-          lcd.print("This station is");
-          lcd.setCursor(0, 1);
-          lcd.print("Busan station");
-        }
+      lcd.clear(); //LCD 지우기
+      Serial.println("clear");
+    }
+    else {
+      lcd.setCursor(0, 0);
+      lcd.print("This station is");
+      lcd.setCursor(0, 1);
+      lcd.print("Busan station");
+      Serial.println("Busan");
+    }
   }
   else if (c == BEFORE_ULSAN){
     l1 = l2; //기준 시간 변수 값 재할당 (3분 전->도착역으로 바뀌는 시점)
-        lcd.clear(); //LCD 지우기
-        lcd.setCursor(0, 0);
-        lcd.print("We'll arrive at");
-        lcd.setCursor(0, 1);
-        lcd.print("Ulsan station");
-        Serial.println("Ulsan Before");
+    lcd.setCursor(0, 0);
+    lcd.print("We'll arrive at");
+    lcd.setCursor(0, 1);
+    lcd.print("Ulsan station");
+    Serial.println("Ulsan Before");
   }
   else if(c == ULSAN) {
     if(l2 - l1 >= interval) { //LCD 출력 후 1분이 지났을 때 실행
-          lcd.clear(); //LCD 지우기
-          Serial.println("clear");
-        }
-        else {
-          lcd.setCursor(0, 0);
-          lcd.print("This station is");
-          lcd.setCursor(0, 1);
-          lcd.print("Ulsan station");
-          Serial.println("Ulsan");
-        }
+      lcd.clear(); //LCD 지우기
+      Serial.println("clear");
+    }
+    else {
+      lcd.setCursor(0, 0);
+      lcd.print("This station is");
+      lcd.setCursor(0, 1);
+      lcd.print("Ulsan station");
+      Serial.println("Ulsan");
+    }
   }
   else if(c == BEFORE_DAEJEON) {
     l1 = l2; //기준 시간 변수 값 재할당 (3분 전->도착역으로 바뀌는 시점)
-        lcd.setCursor(0, 0);
-        lcd.print("We'll arrive at");
-        lcd.setCursor(0, 1);
-        lcd.print("Daejeon station");
-        Serial.println("Daejeon Before");
+    lcd.setCursor(0, 0);
+    lcd.print("We'll arrive at");
+    lcd.setCursor(0, 1);
+    lcd.print("Daejeon station");
+    Serial.println("Daejeon Before");
   }
   else if(c == DAEJEON) {
     if(l2 - l1 >= interval) { //LCD 출력 후 1분이 지났을 때 실행
-          lcd.clear(); //LCD 지우기
-          Serial.println("clear");
-        }
-        else {
-          lcd.setCursor(0, 0);
-          lcd.print("This station is");
-          lcd.setCursor(0, 1);
-          lcd.print("Daejeon station");
-          Serial.println("Daejeon");
-        }
+      lcd.clear(); //LCD 지우기
+      Serial.println("clear");
+    }
+    else {
+      lcd.setCursor(0, 0);
+      lcd.print("This station is");
+      lcd.setCursor(0, 1);
+      lcd.print("Daejeon station");
+      Serial.println("Daejeon");
+     }
   }
   else if(c == SEOUL) {
     lcd.setCursor(0, 0);
-        lcd.print("This station is");
-        lcd.setCursor(0, 1);
-        lcd.print("Seoul station");
-        Serial.println("Seoul");
+    lcd.print("This station is");
+    lcd.setCursor(0, 1);
+    lcd.print("Seoul station");
+    Serial.println("Seoul");
+  }
+  else if(c == DEFAULT_STATE) {
+    l1 = 0;
+    l2 = 0;
   }
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
   l2 = millis();
-  Serial.println(l2);
 }
 
 void receiveEvent(int howMany) {
   inputData = Wire.read(); //inputData에 읽어들인 값 할당
   printLCD(inputData);
-  //l2 = millis(); //l2에 현재 시간 할당
 }
