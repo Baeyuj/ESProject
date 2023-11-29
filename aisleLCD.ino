@@ -60,6 +60,12 @@ void LCD(byte seatStatus, byte currentStation){ //LCD 출력 함수
       lcd.print("1A");
     }
   }
+ else{
+      lcd.setCursor(0,1);
+      lcd.write((byte)0);
+      lcd.setCursor(1,1);
+      lcd.write((byte)0);
+ }
 }
 
 void loop() {
