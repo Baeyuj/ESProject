@@ -60,8 +60,8 @@ void printLCD(byte c) { //lcd 문장 출력 함수
     lcd.print("Seoul station");
     Serial.println("Seoul");
   }
-  else if(c == DEFAULT_STATE) {
-    lcd.clear();
+  else if(c == DEFAULT_STATE) { //초기화
+    lcd.clear(); //lcd 지우기
     Serial.println("default");
   }
 }
