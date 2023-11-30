@@ -121,6 +121,8 @@ void setMode() {                                // 상태를 설정해 I2C 통�
     case DEFAULT_STATE:
       Serial.println("DEFAULT_STATE");
       writeI2C(DEFAULT_STATE);
+      break;
+    
   }
 }
 void loop() {
