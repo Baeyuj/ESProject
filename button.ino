@@ -99,7 +99,6 @@ void setMode() {                                // 상태를 설정해 I2C 통�
     case ULSAN:
       Serial.println("ULSAN");
       writeI2C(ULSAN);
-      readSensor();                             // 센서 읽어옴
       break;
     case BEFORE_DAEJEON:
       Serial.println("BEFORE_DAEJEON");
