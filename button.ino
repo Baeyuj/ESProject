@@ -59,7 +59,7 @@ void controlActuator() {        // seatActuator 컨트롤
 }
 
 void checkButton(){
-  if(digitalRead(button[0]) == HIGH)        // 1번 버튼일 때 SEOUL
+  if(digitalRead(button[0]) == HIGH)        // 1번 버튼일 때 BUSAN
     state = BUSAN;
   else if(digitalRead(button[1]) == HIGH){  // 2번 버튼일 때 BEFORE_ULSAN
     l1 = millis();
