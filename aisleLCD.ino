@@ -48,13 +48,13 @@ void receiveEvent(int howMany){
 void LCD(byte seatStatus, byte currentStation){ //LCD 출력 함수   
   if(currentStation == ULSAN || currentStation == BEFORE_DAEJEON){
     Serial.println("3 and 4");
-    if(seatStatus=='Y'){ //Y일때 빈좌석 번호 출력
+    if(seatStatus=='Y'){ //Y일때 빈좌석이 없음으로 삭제
       Serial.println("Y");
       lcd.setCursor(0,1);
       lcd.write((byte)0);
       lcd.setCursor(1,1);
       lcd.write((byte)0);
-    }else if(seatStatus=='N'){ // N일때 빈좌석이 없음으로 삭제
+    }else if(seatStatus=='N'){ // N일때 제 빈좌석 번호 출력
       Serial.println("N");
       lcd.setCursor(0,1);
       lcd.print("1A");
